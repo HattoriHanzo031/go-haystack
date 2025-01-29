@@ -39,7 +39,7 @@ func main() {
 func run(getReports reports.Get, devices []device.Device) error {
 	deviceReports, err := getReports(devices)
 	if err != nil {
-		e := device.NonFatalError{}
+		e := reports.NonFatalError{}
 		if errors.As(err, &e) {
 			fmt.Println("reports retrieved with errors:", e)
 		} else {

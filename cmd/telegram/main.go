@@ -73,7 +73,7 @@ func run(bot *tgbotapi.BotAPI, chatID int64, getReports reports.Get, devices []d
 
 			deviceReports, err := getReports(locateDevices)
 			if err != nil {
-				e := device.NonFatalError{}
+				e := reports.NonFatalError{}
 				if errors.As(err, &e) {
 					fmt.Println("reports retrieved with errors:", e)
 				} else {
