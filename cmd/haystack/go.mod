@@ -3,6 +3,7 @@ module github.com/HattoriHanzo031/go-haystack/cmd/haystack
 go 1.23.5
 
 require (
+	github.com/HattoriHanzo031/go-haystack v0.0.0-20250129085000-a6146f22fa01
 	tinygo.org/x/bluetooth v0.10.1-0.20250110080820-c6dfccb1a90b
 )
 
