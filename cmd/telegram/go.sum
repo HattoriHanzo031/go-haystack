@@ -1,4 +1,4 @@
-github.com/HattoriHanzo031/go-haystack v0.0.0-20250129094659-3cb17e02dbb7 h1:Wu0HbJRJT8S8ALIIRuJFqR5xqoiMwdvUkSvgUqXZcWE=
-github.com/HattoriHanzo031/go-haystack v0.0.0-20250129094659-3cb17e02dbb7/go.mod h1:/To5qoSELc7SVOYLn3vc6cvGW21sDQbfr9LeBic5xhs=
+github.com/HattoriHanzo031/go-haystack v0.0.2 h1:jiwdF+9z+5pDhKKb7PZkAZJZkuY8EJNz2h8l6pnwwwY=
+github.com/HattoriHanzo031/go-haystack v0.0.2/go.mod h1:/To5qoSELc7SVOYLn3vc6cvGW21sDQbfr9LeBic5xhs=
 github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.5.1 h1:wG8n/XJQ07TmjbITcGiUaOtXxdrINDz1b0J1w0SzqDc=
 github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.5.1/go.mod h1:A2S0CWkNylc2phvKXWBBdD3K0iGnDBGbzRpISP2zBl8=
