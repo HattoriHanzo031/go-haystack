@@ -85,7 +85,7 @@ func GetFn(url string, days int) Get {
 			}
 			decrypted, err := decrypt(rawPayload, mappedDevices[report.ID].PrivateKey)
 			if err != nil {
-				errs = append(errs, fmt.Errorf("failed to decrypt payload (%s) for device %s: %w", report.Payload, report.ID, err))
+				errs = append(errs, fmt.Errorf("failed to decrypt payload (%s) for device %s, %s: %w", report.Payload, mappedDevices[report.ID].Name, report.ID, err))
 				continue
 			}
 
