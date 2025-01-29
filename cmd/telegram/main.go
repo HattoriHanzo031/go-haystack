@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"flag"
 	"fmt"
 	"log"
@@ -72,7 +73,12 @@ func run(bot *tgbotapi.BotAPI, chatID int64, getReports reports.Get, devices []d
 
 			deviceReports, err := getReports(locateDevices)
 			if err != nil {
-				return fmt.Errorf("failed to get decoded reports: %w", err)
+				e := device.NonFatalError{}
+				if errors.As(err, &e) {
+					fmt.Println("reports retrieved with errors:", e)
+				} else {
+					return fmt.Errorf("failed to get reports: %w", err)
+				}
 			}
 			if len(deviceReports) == 0 {
 				return fmt.Errorf("No reports found")
@@ -113,11 +119,10 @@ func handleMessages(bot *tgbotapi.BotAPI /*TODO: logger*/, chatID int64, handler
 		}
 
 		command, args, _ := strings.Cut(update.Message.Text, " ")
-		fmt.Println("Command:", command, "Args:", args)
 		if handler, ok := handlers[strings.ToLower(strings.TrimSpace(command))]; ok {
 			err := handler(bot, strings.ToLower(strings.TrimSpace(args)))
 			if err != nil {
-				fmt.Printf("Failed to handle command %s: %v", command, err)
+				fmt.Printf("Failed to handle command %s: %v", command, err) // TODO: logger
 				_, _ = bot.Send(tgbotapi.NewMessage(chatID, fmt.Sprintf("Failed to handle command %s: %v", command, err)))
 			}
 		}

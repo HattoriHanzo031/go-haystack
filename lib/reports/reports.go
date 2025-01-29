@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/base64"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 	"time"
@@ -22,6 +23,12 @@ type Report struct {
 type Reports map[string][]Report
 
 type Get func([]device.Device) (Reports, error)
+
+type NonFatalError []error
+
+func (e NonFatalError) Error() string {
+	return fmt.Sprintf("%d errors occurred: %s", len(e), errors.Join(e...))
+}
 
 func GetFn(url string, days int) Get {
 	return func(devices []device.Device) (Reports, error) {
@@ -67,17 +74,18 @@ func GetFn(url string, days int) Get {
 			return nil, fmt.Errorf("failed to get reports: %s", response.StatusCode)
 		}
 
+		var errs NonFatalError
 		reports := make(Reports)
 		for _, report := range response.Results {
 			// Decode Base64-encoded values
 			rawPayload, err := base64.StdEncoding.DecodeString(report.Payload)
 			if err != nil {
-				fmt.Printf("failed to decode payload %v\n", err)
+				errs = append(errs, fmt.Errorf("failed to decode payload (%s) for device %s: %w", report.Payload, report.ID, err))
 				continue
 			}
 			decrypted, err := decrypt(rawPayload, mappedDevices[report.ID].PrivateKey)
 			if err != nil {
-				fmt.Printf("failed to decrypt payload: %v\n", err)
+				errs = append(errs, fmt.Errorf("failed to decrypt payload (%s) for device %s: %w", report.Payload, report.ID, err))
 				continue
 			}
 
@@ -89,6 +97,6 @@ func GetFn(url string, days int) Get {
 				//RawPayload:    report.Payload,
 			})
 		}
-		return reports, nil
+		return reports, errs
 	}
 }

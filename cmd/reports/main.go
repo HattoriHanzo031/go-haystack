@@ -2,8 +2,10 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"flag"
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/HattoriHanzo031/go-haystack/lib/device"
@@ -24,22 +26,25 @@ func main() {
 	for _, deviceFile := range flag.Args() {
 		device, err := device.LoadFromFile(deviceFile)
 		if err != nil {
-			fmt.Println("failed to load device:", err)
-			os.Exit(1)
+			log.Fatal("failed to load device:", err)
 		}
 		devices = append(devices, *device)
 	}
 
 	if err := run(reports.GetFn(*endpoint, *days), devices); err != nil {
-		fmt.Println("failed to run:", err)
-		os.Exit(1)
+		log.Fatal("failed to run:", err)
 	}
 }
 
 func run(getReports reports.Get, devices []device.Device) error {
 	deviceReports, err := getReports(devices)
 	if err != nil {
-		return fmt.Errorf("failed to get reports: %w", err)
+		e := device.NonFatalError{}
+		if errors.As(err, &e) {
+			fmt.Println("reports retrieved with errors:", e)
+		} else {
+			return fmt.Errorf("failed to get reports: %w", err)
+		}
 	}
 
 	out, _ := json.MarshalIndent(deviceReports, "", "\t")
