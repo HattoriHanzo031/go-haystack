@@ -1,26 +1,28 @@
 package main
 
 import (
-	"fmt"
+	"encoding/base64"
 	"math/rand"
 	"os"
 	"strconv"
 	"text/template"
+
+	"github.com/HattoriHanzo031/go-haystack/lib/device"
 )
 
 func saveKeys(name string, priv string, pub string, hash string) error {
-	f, err := os.Create(name + ".keys")
+	pk, err := base64.StdEncoding.DecodeString(priv)
 	if err != nil {
 		return err
 	}
 
-	defer f.Close()
-
-	f.Write([]byte(fmt.Sprintf("Private key: %s\n", priv)))
-	f.Write([]byte(fmt.Sprintf("Advertisement key: %s\n", pub)))
-	f.Write([]byte(fmt.Sprintf("Hashed adv key: %s\n", hash)))
-
-	return nil
+	device := device.Device{
+		Name:             name,
+		ID:               hash,
+		AdvertisementKey: pub,
+		PrivateKey:       pk,
+	}
+	return device.SaveToFile()
 }
 
 const deviceTemplate = `[
