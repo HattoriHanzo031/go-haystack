@@ -1,8 +1,11 @@
-module github.com/hybridgroup/go-haystack
+module github.com/HattoriHanzo031/go-haystack
 
-go 1.23.0
+go 1.23.5
 
-require tinygo.org/x/bluetooth v0.10.0
+require (
+	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.5.1
+	tinygo.org/x/bluetooth v0.10.0
+)
 
 require (
 	github.com/go-ole/go-ole v1.2.6 // indirect

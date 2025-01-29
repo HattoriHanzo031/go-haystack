@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/hybridgroup/go-haystack/lib/device"
+	"github.com/HattoriHanzo031/go-haystack/lib/device"
 )
 
 type Report struct {

@@ -1,9 +1,8 @@
-module github.com/hybridgroup/go-haystack/tinyscan
+module github.com/HattoriHanzo031/go-haystack/tinyscan
 
-go 1.23.0
+go 1.23.4
 
 require (
-	github.com/hybridgroup/go-haystack v0.0.0-20250112154723-07ab9075fa2b
 	tinygo.org/x/bluetooth v0.10.1-0.20250110155930-faf2ed3d797d
 	tinygo.org/x/drivers v0.29.0
 	tinygo.org/x/tinyfont v0.5.0

@@ -5,7 +5,7 @@ package main
 import (
 	"encoding/hex"
 
-	"github.com/hybridgroup/go-haystack/lib/findmy"
+	"github.com/HattoriHanzo031/go-haystack/lib/findmy"
 	"tinygo.org/x/bluetooth"
 )
 

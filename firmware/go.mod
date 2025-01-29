@@ -1,9 +1,8 @@
-module github.com/hybridgroup/go-haystack/firmware
+module github.com/HattoriHanzo031/go-haystack/firmware
 
 go 1.23.0
 
 require (
-	github.com/hybridgroup/go-haystack v0.0.0-20250112154723-07ab9075fa2b
 	tinygo.org/x/bluetooth v0.10.1-0.20250110080820-c6dfccb1a90b
 )
 

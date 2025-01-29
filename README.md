@@ -81,7 +81,7 @@ See https://github.com/dchristl/macless-haystack/blob/main/README.md#server-setu
 Install the go-haystack command line tool
 
 ```shell
-go install github.com/hybridgroup/go-haystack/cmd/haystack@latest
+go install github.com/HattoriHanzo031/go-haystack/cmd/haystack@latest
 ```
 
 ## How to use
